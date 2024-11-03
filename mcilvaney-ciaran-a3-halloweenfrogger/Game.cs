@@ -12,26 +12,80 @@ namespace Game10003
     public class Game
     {
         // Setting up colors 
-        Color cat = new Color(0x00, 0x01, 0x43);
+        Color catColor = new Color(0x00, 0x01, 0x43);
         Color roadBackground = new Color(0x10, 0x08, 0x20);
-        Color ghosts = new Color(0xf0, 0xf8, 0xe0);
+        Color ghostsColor = new Color(0xf0, 0xf8, 0xe0);
         Color safeZone = new Color(0xa2, 0x2f, 0xc9);
         Color candyBarOneAndTwoOutside = new Color(0xad, 0x0b, 0x42);
-        Color candyBarOneAndTwoInside = new Color(0xf4, 0xd0, 0xa7);                                
+        Color candyBarOneAndTwoInside = new Color(0xf4, 0xd0, 0xa7);
         Color candyBarTwoOutside = new Color(0x87, 0x67, 0xbd);
         Color candyBarTwoInside = new Color(0xff, 0xd5, 0x80);
         Color endingArea = new Color(0xff, 0x8b, 0x40);
         Color witchPotionJuice = new Color(0x0a, 0x77, 0x7a);
 
+        // Calling classes
+        Player player = new Player();
+        RowOneGhosts[] ghostsRowOne = new RowOneGhosts[6];
+        RowTwoGhosts[] ghostsRowTwo = new RowTwoGhosts[6];
+        RowThreeGhosts[] ghostsRowThree = new RowThreeGhosts[6];
+
         public void Setup()
         {
+            // Set up window screen size and title 
             Window.SetTitle("Halloween Frogger");
             Window.SetSize(600, 800);
+
+
+            // Drawing player starting positon
+            player.playerPosition.X = Window.Width / 2;
+            player.playerPosition.Y = 750;
+            player.playerSize = Vector2.One * 35;
+            player.playerSpeed = 150; //pixels per second
+            player.color = catColor;
+
+
+            // Set up row one of ghosts 
+            for (int i = 0; i < ghostsRowOne.Length; i++)
+            {
+                RowOneGhosts ghostRowOne = new RowOneGhosts();
+                ghostRowOne.color = ghostsColor;
+                ghostRowOne.ghostSize = new Vector2(100, 30);
+                ghostRowOne.ghostPosition.X = Random.Float(0, 600);
+                ghostRowOne.ghostPosition.Y = 660;
+                ghostsRowOne[i] = ghostRowOne;
+            }
+
+            // Set up row two of ghosts 
+            for (int i = 0; i < ghostsRowTwo.Length; i++)
+            {
+                RowTwoGhosts ghostRowTwo = new RowTwoGhosts();
+                ghostRowTwo.color = ghostsColor;
+                ghostRowTwo.ghostSize = new Vector2(100, 30);
+                ghostRowTwo.ghostPosition.X = Random.Float(0, 600);
+                ghostRowTwo.ghostPosition.Y = 560;
+                ghostsRowTwo[i] = ghostRowTwo;
+            }
+
+            // Set up row three of ghosts 
+            for (int i = 0; i < ghostsRowThree.Length; i++)
+            {
+                RowThreeGhosts ghostRowThree = new RowThreeGhosts();
+                ghostRowThree.color = ghostsColor;
+                ghostRowThree.ghostSize = new Vector2(100, 30);
+                ghostRowThree.ghostPosition.X = Random.Float(0, 600);
+                ghostRowThree.ghostPosition.Y = 460;
+                ghostsRowThree[i] = ghostRowThree;
+            }
+
         }
- 
+
         public void Update()
         {
+
             Window.ClearBackground(Color.OffWhite);
+
+
+
 
             // Draw Safe Zones
             // Safe Zone One
@@ -41,7 +95,7 @@ namespace Game10003
             // Safe Zone Two 
             Draw.FillColor = safeZone;
             Draw.LineSize = 0;
-            Draw.Rectangle(0,370,600,60);
+            Draw.Rectangle(0, 370, 600, 60);
 
             // Draw Road
             Draw.FillColor = roadBackground;
@@ -57,67 +111,6 @@ namespace Game10003
             Draw.FillColor = endingArea;
             Draw.LineSize = 0;
             Draw.Rectangle(0, 0, 600, 90);
-
-            // Draw cat
-            Draw.FillColor = cat;
-            Draw.LineSize = 0;
-            Draw.Ellipse(300, 785, 20, 30); // Body
-            Draw.Ellipse(300, 760, 20, 20); // Head
-
-            // Draw Ghosts 
-            // Line 1 Ghost 1
-            Draw.FillColor = ghosts;
-            Draw.LineSize = 0;
-            Draw.Rectangle(480, 460, 100, 30);
-            Draw.Circle(480, 475, 15);
-            Draw.Triangle(580, 460, 580, 470, 590, 465);
-            Draw.Triangle(580, 470, 580, 480, 590, 475);
-            Draw.Triangle(580, 480, 580, 490, 590, 485);
-
-            // Line 1 Ghost 2
-            Draw.FillColor = ghosts;
-            Draw.LineSize = 0;
-            Draw.Rectangle(120, 460, 100, 30);
-            Draw.Circle(120, 475, 15);
-            Draw.Triangle(220, 460, 220, 470, 230, 465);
-            Draw.Triangle(220, 470, 220, 480, 230, 475);
-            Draw.Triangle(220, 480, 220, 490, 230, 485);
-
-            // Line 2 Ghost 1
-            Draw.FillColor = ghosts;
-            Draw.LineSize = 0;
-            Draw.Rectangle(180, 560, 100, 30);
-            Draw.Circle(280, 575, 15);
-            Draw.Triangle(180, 560, 180, 570, 170, 565);
-            Draw.Triangle(180, 570, 180, 580, 170, 575);
-            Draw.Triangle(180, 580, 180, 590, 170, 585);
-
-            // Line 2 Ghost 2
-            Draw.FillColor = ghosts;
-            Draw.LineSize = 0;
-            Draw.Rectangle(410,560,100,30);
-            Draw.Circle(510,575,15);
-            Draw.Triangle(410, 560, 410, 570, 400, 565);
-            Draw.Triangle(410, 570, 410, 580, 400, 575);
-            Draw.Triangle(410, 580, 410, 590, 400, 585);
-
-            // Line 3 Ghost 1
-            Draw.FillColor = ghosts;
-            Draw.LineSize = 0;
-            Draw.Rectangle(370,660,100,30);
-            Draw.Circle(370, 675, 15);
-            Draw.Triangle(470, 660, 470, 670, 480, 665);
-            Draw.Triangle(470, 670, 470, 680, 480, 675);
-            Draw.Triangle(470, 680, 470, 690, 480, 685);
-
-            // Line 3 Ghost 2 
-            Draw.FillColor = ghosts;
-            Draw.LineSize = 0;
-            Draw.Rectangle(80, 660, 100, 30);
-            Draw.Circle(80, 675, 15);
-            Draw.Triangle(180, 660, 180, 670, 190, 665);
-            Draw.Triangle(180, 670, 180, 680, 190, 675);
-            Draw.Triangle(180, 680, 180, 690, 190, 685);
 
             // Draw Candy Bars
             // Line 1 Candy Bar 
@@ -175,8 +168,8 @@ namespace Game10003
             // Line 3 Candy Bar
             Draw.FillColor = candyBarOneAndTwoOutside;
             Draw.LineSize = 0;
-            Draw.Rectangle(20,90,280,100);
-            Draw.Triangle(20,90,20,110,0,100);
+            Draw.Rectangle(20, 90, 280, 100);
+            Draw.Triangle(20, 90, 20, 110, 0, 100);
             Draw.Triangle(20, 110, 20, 130, 0, 120);
             Draw.Triangle(20, 130, 20, 150, 0, 140);
             Draw.Triangle(20, 150, 20, 170, 0, 160);
@@ -190,6 +183,43 @@ namespace Game10003
             Draw.LineSize = 0;
             Draw.Rectangle(50, 120, 220, 40);
 
+
+            // Calling player DrawPlayer and Move function in update
+            player.DrawPlayer();
+            player.Move();
+
+            // Draw the ghosts as many times there are in the array
+            for (int i = 0; i < ghostsRowOne.Length; i++)
+            {
+
+                bool doesRowOneGhostHitPlayer = player.DoesPlayerHitRowOneGhosts(ghostsRowOne[i]);
+                if (doesRowOneGhostHitPlayer)
+                {
+                    Console.WriteLine("Hit");
+                }
+
+                bool doesRowTwoGhostHitPlayer = player.DoesPlayerHitRowTwoGhosts(ghostsRowTwo[i]);
+                if (doesRowTwoGhostHitPlayer)
+                {
+                    Console.WriteLine("Hit");
+                }
+
+                bool doesRowThreeGhostHitPlayer = player.DoesPlayerHitRowThreeGhosts(ghostsRowThree[i]);
+
+                if (doesRowThreeGhostHitPlayer)
+                {
+                    Console.WriteLine("Hit");
+                }
+
+                ghostsRowOne[i].DrawGhosts();
+                ghostsRowOne[i].Move();
+
+                ghostsRowTwo[i].DrawGhosts();
+                ghostsRowTwo[i].Move();
+
+                ghostsRowThree[i].DrawGhosts();
+                ghostsRowThree[i].Move();
+            }
 
 
         }

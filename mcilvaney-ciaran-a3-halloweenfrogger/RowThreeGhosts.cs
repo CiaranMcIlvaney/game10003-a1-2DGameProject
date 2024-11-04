@@ -5,6 +5,7 @@ namespace Game10003;
 
 public class RowThreeGhosts
 {
+    // Setting up variables 
     public Vector2 ghostPosition;
     public Vector2 ghostSize;
     public Color color;
@@ -19,10 +20,12 @@ public class RowThreeGhosts
     }
     public void Move()
     {
+        // Ghost speed
         Vector2 directionSpeed = new Vector2(2, 0);
         ghostMovmentSpeed += directionSpeed * Time.DeltaTime;
         ghostPosition -= ghostMovmentSpeed;
 
+        // Reset back to position 700 if candy bar goes past -100
         if (ghostPosition.X < -100)
         {
             ghostPosition.X = 700;

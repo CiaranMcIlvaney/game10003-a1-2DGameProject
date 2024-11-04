@@ -6,6 +6,7 @@ namespace Game10003;
 
 public class Player
 {
+    // Setting up variables 
     public Vector2 playerPosition;
     public Vector2 playerSize;
     public float playerSpeed;
@@ -82,6 +83,50 @@ public class Player
         bool isWithinRowThreeGhostTopEdge = playerBottom > ghostTop;
         bool isWithinRowThreeGhostBottomEdge = playerTop < ghostBottom;
         bool isColliding = isWithinRowThreeGhostLeftEdge && isWithinRowThreeGhostRightEdge && isWithinRowThreeGhostTopEdge && isWithinRowThreeGhostBottomEdge;
+
+        return isColliding;
+    }
+
+    // Does Player Collide with Witch Potion Juice
+    public bool DoesPlayerHitWitchPotionJuice(WitchPotionJuice witchPotionJuice)
+    {
+        float playerLeft = playerPosition.X;
+        float playerRight = playerPosition.X + playerSize.X;
+        float playerTop = playerPosition.Y;
+        float playerBottom = playerPosition.Y + playerSize.Y;
+
+        float potionLeft = witchPotionJuice.potionPosition.X;
+        float potionRight = witchPotionJuice.potionPosition.X + witchPotionJuice.potionSize.X;
+        float potionTop = witchPotionJuice.potionPosition.Y;
+        float potionBottom = witchPotionJuice.potionPosition.Y + witchPotionJuice.potionSize.Y;
+
+        bool isWithinWitchPotionJuiceLeftEdge = playerRight > potionLeft;
+        bool isWithinWitchPotionJuiceRightEdge = playerLeft < potionRight;
+        bool isWithinWitchPotionJuiceTopEdge = playerBottom > potionTop;
+        bool isWithinWitchPotionJuiceBottomEdge = playerTop < potionBottom;
+        bool isColliding = isWithinWitchPotionJuiceLeftEdge && isWithinWitchPotionJuiceRightEdge && isWithinWitchPotionJuiceTopEdge && isWithinWitchPotionJuiceBottomEdge;
+
+        return isColliding;
+    }
+
+    // Does Player Collide with End Location
+    public bool DoesPlayerHitEndLocation(EndLocation endLocation)
+    {
+        float playerLeft = playerPosition.X;
+        float playerRight = playerPosition.X + playerSize.X;
+        float playerTop = playerPosition.Y;
+        float playerBottom = playerPosition.Y + playerSize.Y;
+
+        float endLocationLeft = endLocation.endLocationPosition.X;
+        float endLocationRight = endLocation.endLocationPosition.X + endLocation.endLocationSize.X;
+        float endLocationTop = endLocation.endLocationPosition.Y;
+        float endLocationBottom = endLocation.endLocationPosition.Y + endLocation.endLocationSize.Y;
+
+        bool isWithinEndLocationLeftEdge = playerRight > endLocationLeft;
+        bool isWithinEndLocationRightEdge = playerLeft < endLocationRight;
+        bool isWithinEndLocationTopEdge = playerBottom > endLocationTop;
+        bool isWithinEndLocationBottomEdge = playerTop < endLocationBottom;
+        bool isColliding = isWithinEndLocationLeftEdge && isWithinEndLocationRightEdge && isWithinEndLocationTopEdge && isWithinEndLocationBottomEdge;
 
         return isColliding;
     }

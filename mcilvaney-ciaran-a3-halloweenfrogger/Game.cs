@@ -35,7 +35,7 @@ public class Game
     RowThreeCandyBar candyBarRowThree = new RowThreeCandyBar();
     EndLocation endLocation = new EndLocation();
 
-    // Game state flags
+    // Bools for showing game over and win screen 
     bool isGameOver = false;
     bool isWin = false;
 
@@ -89,7 +89,7 @@ public class Game
         // Draw end location 
         endLocation.endLocationPosition.X = 0;
         endLocation.endLocationPosition.Y = 0;
-        endLocation.endLocationSize = new Vector2(600, 90);
+        endLocation.endLocationSize = new Vector2(600, 60);
         endLocation.color = endLocationColor;
 
         // Set up row one of ghosts 
@@ -129,29 +129,29 @@ public class Game
     public void Update()
     {
         // If isGameOver equals true display game over screen 
-        if (isGameOver)
+        if (isGameOver == true)
         {
             DrawGameOver();
             // If player presses space reset game
             if (Input.IsKeyboardKeyDown(KeyboardInput.Space))
             {
-                Setup(); // Reset game on space bar press
+                Setup(); // Reset game if space bar is pressed 
             }
             return; // Stop any further code from running in update
         }
 
         // If isWin equals true display win screemn
-        if (isWin)
+        if (isWin == true)
         {
             DrawWin();
             // If player presses space reset the game
             if (Input.IsKeyboardKeyDown(KeyboardInput.Space))
             {
-                Setup(); // Reset game on space bar press
+                Setup(); // Reset game if space bar is pressed 
             }
             return; // Stop any further code from running in update
         }
-       
+
         // Safe Zone One
         Draw.FillColor = safeZone;
         Draw.LineSize = 0;
@@ -165,6 +165,11 @@ public class Game
         Draw.FillColor = roadBackground;
         Draw.LineSize = 0;
         Draw.Rectangle(0, 430, 600, 310);
+
+        // Draw End Area 
+        Draw.FillColor = endLocationColor;
+        Draw.LineSize = 0;
+        Draw.Rectangle(0, 0, 600, 90);
 
         // Draw the ghosts as many times there are in the array
         for (int i = 0; i < ghostsRowOne.Length; i++)
@@ -193,14 +198,22 @@ public class Game
             ghostsRowThree[i].DrawGhosts();
             ghostsRowThree[i].Move();
         }
+    
+        // If player is on any candy bar make isGameOver equal to false
+        bool doesCandyBarsHitPlayer = player.DoesPlayerHitRowOneCandyBar(candyBarRowOne) || player.DoesPlayerHitRowTwoCandyBar(candyBarOneRowTwo) || player.DoesPlayerHitRowTwoCandyBar(candyBarTwoRowTwo) || player.DoesPlayerHitRowThreeCandyBar(candyBarRowThree);
+        if (doesCandyBarsHitPlayer)
+        {
+            isGameOver = false;
+        }
 
-        // If player hits witchPotionJuice make isGameOver equal to true
+        // If player hits witchPotionJuice and is not on a Candy bar make isGameOver equal to true
         bool doesWitchPotionJuiceHitPlayer = player.DoesPlayerHitWitchPotionJuice(witchPotionJuice);
-        if (doesWitchPotionJuiceHitPlayer)
+        if (doesWitchPotionJuiceHitPlayer && !doesCandyBarsHitPlayer)
         {
             isGameOver = true;
             return; // Stop any further code from running in update
-        }
+        } 
+     
         // Draw potion juice
         witchPotionJuice.DrawPotionJuice();
 

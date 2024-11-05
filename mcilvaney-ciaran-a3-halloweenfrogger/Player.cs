@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Game1000;
+using System;
 using System.Drawing;
 using System.Numerics;
 
@@ -105,6 +106,72 @@ public class Player
         bool isWithinWitchPotionJuiceTopEdge = playerBottom > potionTop;
         bool isWithinWitchPotionJuiceBottomEdge = playerTop < potionBottom;
         bool isColliding = isWithinWitchPotionJuiceLeftEdge && isWithinWitchPotionJuiceRightEdge && isWithinWitchPotionJuiceTopEdge && isWithinWitchPotionJuiceBottomEdge;
+
+        return isColliding;
+    }
+
+    // Does Player Collide with Row One Candy Bar
+    public bool DoesPlayerHitRowOneCandyBar(RowOneCandyBar rowOneCandyBar)
+    {
+        float playerLeft = playerPosition.X;
+        float playerRight = playerPosition.X + playerSize.X;
+        float playerTop = playerPosition.Y;
+        float playerBottom = playerPosition.Y + playerSize.Y;
+
+        float candyBarLeft = rowOneCandyBar.candyBarPosition.X;
+        float candyBarRight = rowOneCandyBar.candyBarPosition.X + rowOneCandyBar.candyBarSize.X;
+        float candyBarTop = rowOneCandyBar.candyBarPosition.Y;
+        float candyBarBottom = rowOneCandyBar.candyBarPosition.Y + rowOneCandyBar.candyBarSize.Y;
+
+        bool isWithinRowOneCandyBarLeftEdge = playerRight > candyBarLeft;
+        bool isWithinRowOneCandyBarRightEdge = playerLeft < candyBarRight;
+        bool isWithinRowOneCandyBarTopEdge = playerBottom > candyBarTop;
+        bool isWithinRowOneCandyBarBottomEdge = playerTop < candyBarBottom;
+        bool isColliding = isWithinRowOneCandyBarLeftEdge && isWithinRowOneCandyBarRightEdge && isWithinRowOneCandyBarTopEdge && isWithinRowOneCandyBarBottomEdge;
+
+        return isColliding;
+    }
+
+    // Does Player Collide with Row One Candy Bar 
+    public bool DoesPlayerHitRowTwoCandyBar(RowTwoCandyBar rowTwoCandyBars)
+    {
+        float playerLeft = playerPosition.X;
+        float playerRight = playerPosition.X + playerSize.X;
+        float playerTop = playerPosition.Y;
+        float playerBottom = playerPosition.Y + playerSize.Y;
+
+        float candyBarLeft = rowTwoCandyBars.candyBarPosition.X;
+        float candyBarRight = rowTwoCandyBars.candyBarPosition.X + rowTwoCandyBars.candyBarSize.X;
+        float candyBarTop = rowTwoCandyBars.candyBarPosition.Y;
+        float candyBarBottom = rowTwoCandyBars.candyBarPosition.Y + rowTwoCandyBars.candyBarSize.Y;
+
+        bool isWithinRowTwoCandyBarsLeftEdge = playerRight > candyBarLeft;
+        bool isWithinRowTwoCandyBarsRightEdge = playerLeft < candyBarRight;
+        bool isWithinRowTwoCandyBarsTopEdge = playerBottom > candyBarTop;
+        bool isWithinRowTwoCandyBarsBottomEdge = playerTop < candyBarBottom;
+        bool isColliding = isWithinRowTwoCandyBarsLeftEdge && isWithinRowTwoCandyBarsRightEdge && isWithinRowTwoCandyBarsTopEdge && isWithinRowTwoCandyBarsBottomEdge;
+
+        return isColliding;
+    }
+
+    // Does Player Collide with Row Three Candy Bar 
+    public bool DoesPlayerHitRowThreeCandyBar(RowThreeCandyBar rowThreeCandyBar)
+    {
+        float playerLeft = playerPosition.X;
+        float playerRight = playerPosition.X + playerSize.X;
+        float playerTop = playerPosition.Y;
+        float playerBottom = playerPosition.Y + playerSize.Y;
+
+        float candyBarLeft = rowThreeCandyBar.candyBarPosition.X;
+        float candyBarRight = rowThreeCandyBar.candyBarPosition.X + rowThreeCandyBar.candyBarSize.X;
+        float candyBarTop = rowThreeCandyBar.candyBarPosition.Y;
+        float candyBarBottom = rowThreeCandyBar.candyBarPosition.Y + rowThreeCandyBar.candyBarSize.Y;
+
+        bool isWithinRowThreeCandyBarLeftEdge = playerRight > candyBarLeft;
+        bool isWithinRowThreeCandyBarRightEdge = playerLeft < candyBarRight;
+        bool isWithinRowThreeCandyBarTopEdge = playerBottom > candyBarTop;
+        bool isWithinRowThreeCandyBarBottomEdge = playerTop < candyBarBottom;
+        bool isColliding = isWithinRowThreeCandyBarLeftEdge && isWithinRowThreeCandyBarRightEdge && isWithinRowThreeCandyBarTopEdge && isWithinRowThreeCandyBarBottomEdge;
 
         return isColliding;
     }
